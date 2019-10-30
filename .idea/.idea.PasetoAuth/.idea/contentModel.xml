@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Mauricio\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Mauricio\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_PasetoAuth.-1885484426.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Mauricio\RiderProjects\PasetoAuth" t="IncludeFlat">
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="PasetoAuth" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.2" t="Include">
+              <e p="PasetoAuth.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="PasetoAuth.csproj" t="IncludeRecursive" />
+        <e p="PasetoAuthExtensions.cs" t="Include" />
+        <e p="PasetoOptions.cs" t="Include" />
+        <e p="README.md" t="Include" />
+      </e>
+      <e p="PasetoAuth.sln" t="IncludeFlat" />
+    </e>
+  </component>
+</project>
