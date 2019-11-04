@@ -1,0 +1,11 @@
+C:\Users\Mauricio\RiderProjects\PasetoAuth\PasetoAuth\bin\Debug\netcoreapp2.2\PasetoAuth.deps.json
+C:\Users\Mauricio\RiderProjects\PasetoAuth\PasetoAuth\bin\Debug\netcoreapp2.2\PasetoAuth.runtimeconfig.json
+C:\Users\Mauricio\RiderProjects\PasetoAuth\PasetoAuth\bin\Debug\netcoreapp2.2\PasetoAuth.runtimeconfig.dev.json
+C:\Users\Mauricio\RiderProjects\PasetoAuth\PasetoAuth\bin\Debug\netcoreapp2.2\PasetoAuth.dll
+C:\Users\Mauricio\RiderProjects\PasetoAuth\PasetoAuth\bin\Debug\netcoreapp2.2\PasetoAuth.pdb
+C:\Users\Mauricio\RiderProjects\PasetoAuth\PasetoAuth\obj\Debug\netcoreapp2.2\PasetoAuth.csprojAssemblyReference.cache
+C:\Users\Mauricio\RiderProjects\PasetoAuth\PasetoAuth\obj\Debug\netcoreapp2.2\PasetoAuth.csproj.CoreCompileInputs.cache
+C:\Users\Mauricio\RiderProjects\PasetoAuth\PasetoAuth\obj\Debug\netcoreapp2.2\PasetoAuth.AssemblyInfoInputs.cache
+C:\Users\Mauricio\RiderProjects\PasetoAuth\PasetoAuth\obj\Debug\netcoreapp2.2\PasetoAuth.AssemblyInfo.cs
+C:\Users\Mauricio\RiderProjects\PasetoAuth\PasetoAuth\obj\Debug\netcoreapp2.2\PasetoAuth.dll
+C:\Users\Mauricio\RiderProjects\PasetoAuth\PasetoAuth\obj\Debug\netcoreapp2.2\PasetoAuth.pdb

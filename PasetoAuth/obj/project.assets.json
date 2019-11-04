@@ -2709,6 +2709,18 @@
           }
         }
       },
+      "NaCl.Core/1.2.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Memory": "4.5.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/NaCl.Core.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/NaCl.Core.dll": {}
+        }
+      },
       "NETStandard.Library/2.0.3": {
         "type": "package",
         "dependencies": {
@@ -2744,6 +2756,29 @@
         },
         "runtime": {
           "lib/netstandard1.3/Newtonsoft.Json.Bson.dll": {}
+        }
+      },
+      "Paseto.Core/0.7.2": {
+        "type": "package",
+        "dependencies": {
+          "NaCl.Core": "1.2.0",
+          "Newtonsoft.Json": "10.0.3",
+          "Paseto.Cryptography": "0.7.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/Paseto.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Paseto.dll": {}
+        }
+      },
+      "Paseto.Cryptography/0.7.2": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Paseto.Cryptography.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Paseto.Cryptography.dll": {}
         }
       },
       "Remotion.Linq/2.2.0": {
@@ -3455,7 +3490,7 @@
           "lib/netstandard1.3/System.Linq.Queryable.dll": {}
         }
       },
-      "System.Memory/4.5.1": {
+      "System.Memory/4.5.2": {
         "type": "package",
         "compile": {
           "ref/netcoreapp2.1/_._": {}
@@ -7208,6 +7243,21 @@
         "version.txt"
       ]
     },
+    "NaCl.Core/1.2.0": {
+      "sha512": "FozctDsDd0WFVARgiT1eanZdSmc8VF6JeUwR2/c4lQ6XkdquaOSJFGo9ninjstI323NQSscEiJyn2w0pt8kbxw==",
+      "type": "package",
+      "path": "nacl.core/1.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/NaCl.Core.dll",
+        "lib/net47/NaCl.Core.dll",
+        "lib/netstandard1.3/NaCl.Core.dll",
+        "lib/netstandard2.0/NaCl.Core.dll",
+        "nacl.core.1.2.0.nupkg.sha512",
+        "nacl.core.nuspec"
+      ]
+    },
     "NETStandard.Library/2.0.3": {
       "sha512": "st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
       "type": "package",
@@ -7380,6 +7430,34 @@
         "lib/netstandard1.3/Newtonsoft.Json.Bson.xml",
         "newtonsoft.json.bson.1.0.1.nupkg.sha512",
         "newtonsoft.json.bson.nuspec"
+      ]
+    },
+    "Paseto.Core/0.7.2": {
+      "sha512": "qSA9MnKVOA68yBZBnXRfcQMVtJHhALan/fuEYiSaFw1PAwQFKifpnO20V7yAzOjpXfTmRBv9r+SnQr0bNSrNRA==",
+      "type": "package",
+      "path": "paseto.core/0.7.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net46/Paseto.dll",
+        "lib/net47/Paseto.dll",
+        "lib/netstandard2.0/Paseto.dll",
+        "paseto.core.0.7.2.nupkg.sha512",
+        "paseto.core.nuspec"
+      ]
+    },
+    "Paseto.Cryptography/0.7.2": {
+      "sha512": "gOYsHJfWB1P5S9qabpMaZIYwONRsukfJpU4X6jP9rP0ATq0kNnBobOttrrt6g5ydii1ITkF64uevSkHA5jAvCw==",
+      "type": "package",
+      "path": "paseto.cryptography/0.7.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net46/Paseto.Cryptography.dll",
+        "lib/net47/Paseto.Cryptography.dll",
+        "lib/netstandard2.0/Paseto.Cryptography.dll",
+        "paseto.cryptography.0.7.2.nupkg.sha512",
+        "paseto.cryptography.nuspec"
       ]
     },
     "Remotion.Linq/2.2.0": {
@@ -9324,10 +9402,10 @@
         "system.linq.queryable.nuspec"
       ]
     },
-    "System.Memory/4.5.1": {
-      "sha512": "sDJYJpGtTgx+23Ayu5euxG5mAXWdkDb4+b0rD0Cab0M1oQS9H0HXGPriKcqpXuiJDTV7fTp/d+fMDJmnr6sNvA==",
+    "System.Memory/4.5.2": {
+      "sha512": "fvq1GNmUFwbKv+aLVYYdgu/+gc8Nu9oFujOxIjPrsf+meis9JBzTPDL6aP/eeGOz9yPj6rRLUbOjKMpsMEWpNg==",
       "type": "package",
-      "path": "system.memory/4.5.1",
+      "path": "system.memory/4.5.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -9339,11 +9417,7 @@
         "lib/netstandard2.0/System.Memory.dll",
         "lib/netstandard2.0/System.Memory.xml",
         "ref/netcoreapp2.1/_._",
-        "ref/netstandard1.1/System.Memory.dll",
-        "ref/netstandard1.1/System.Memory.xml",
-        "ref/netstandard2.0/System.Memory.dll",
-        "ref/netstandard2.0/System.Memory.xml",
-        "system.memory.4.5.1.nupkg.sha512",
+        "system.memory.4.5.2.nupkg.sha512",
         "system.memory.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -12151,7 +12225,8 @@
     ".NETCoreApp,Version=v2.2": [
       "Microsoft.AspNetCore.App >= 2.2.7",
       "Microsoft.NETCore.App >= 2.2.0",
-      "Newtonsoft.Json >= 12.0.2"
+      "Newtonsoft.Json >= 12.0.2",
+      "Paseto.Core >= 0.7.2"
     ]
   },
   "packageFolders": {
@@ -12208,6 +12283,10 @@
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[12.0.2, )"
+          },
+          "Paseto.Core": {
+            "target": "Package",
+            "version": "[0.7.2, )"
           }
         },
         "imports": [

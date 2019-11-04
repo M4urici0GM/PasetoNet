@@ -1,30 +1,32 @@
 ﻿using System;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
+using PasetoAuth.Common;
+using PasetoAuth.Options;
 
 namespace PasetoAuth
 {
     public static class PasetoAuthExtensions
     {
-        public static AuthenticationBuilder AddPaseto(this AuthenticationBuilder builder)
-        {
-            throw new NotImplementedException();
-        }
 
+    
+        
         public static AuthenticationBuilder AddPaseto(
             this AuthenticationBuilder builder,
-            Action<PasetoOptions> configureOptions)
+            Action<PasetoValidationParameters> configureOptions)
         {
-            throw new NotImplementedException();
+            return AddPaseto(builder, PasetoDefaults.Bearer, configureOptions);
         }
         
         public static AuthenticationBuilder AddPaseto(
             this AuthenticationBuilder builder,
             string authenticationScheme,
-            string displayName,
-            Action<PasetoOptions> configureOptions)
+            Action<PasetoValidationParameters> configureOptions)
         {
-            throw new NotImplementedException();
+            builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<IPostConfigureOptions<PasetoValidationParameters>, PasetoValidationParametersPostConfigure>());
+            return builder.AddScheme<PasetoValidationParameters, PasetoAuthHandler>(authenticationScheme, configureOptions);
         }
     }
 }
