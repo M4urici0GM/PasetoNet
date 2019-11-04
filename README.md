@@ -1,4 +1,7 @@
-﻿# PasetoNet
+﻿
+[![Build Status](https://travis-ci.org/M4urici0GM/PasetoNet.svg?branch=master)](https://travis-ci.org/M4urici0GM/PasetoNet)
+
+# PasetoNet
 A [Paseto-dotnet](https://github.com/idaviddesmet/paseto-dotnet) extension for .netCore authentication.
 
 ## Dependencies:
