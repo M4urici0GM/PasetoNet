@@ -25,7 +25,6 @@
         <e p="PasetoAuth.csproj" t="IncludeRecursive" />
         <e p="PasetoAuthExtensions.cs" t="Include" />
         <e p="PasetoAuthHandler.cs" t="Include" />
-        <e p="README.md" t="Include" />
       </e>
       <e p="PasetoAuth.sln" t="IncludeFlat" />
     </e>

@@ -39,7 +39,7 @@ I Personally prefer to block non-authenticated users in the entire application,
 and allow anonymous routes on-demand, to make that happen, we need to create a filter telling to the authorization policy only allow authenticated users.
 
 See the code below:
-```chsarp
+```csharp
 public void Configure(IApplicationBuilder app)
 {
     //...
