@@ -48,7 +48,36 @@ public void Configure(IApplicationBuilder app)
 }
 ```
 
+## Generating tokens
+```csharp
+
+ClaimsIdentity identity = new ClaimsIdentity(
+    new GenericIdentity(userUniqueIdentifier, nameOfIdentifier),
+    new []
+    {
+        new Claim(PasetoRegisteredClaimsNames.TokenIdentifier, Guid.NewGuid().ToString("N")),
+        //Add your claims here. e.g. new Claim("name", "value"),
+    });
+
+PasetoTokenDescriptor pasetoTokenDescriptor = new PasetoTokenDescriptor()
+{
+    Audience = audience,
+    Expires = expirationDate,
+    Issuer = issuer,
+    Subject = identity,
+    NotBefore = DateTime.Now,
+    SecretKey = secretKey
+};
+PasetoTokenHandler tokenHandler = new PasetoTokenHandler();
+
+//Write the token (awaitable)
+string token = tokenHandler.WriteToken(pasetoTokenDescriptor);
+```
+
 # Tips: 
+### The tips below are only tips and tricks, you can use them, or just follow your own style, i decided to put them here, 'cause in the beginning i suffered a lot to learn that.
+
+## Blocking non-authenticated users globally:
 I Personally prefer to block non-authenticated users in the entire application,
 and allow anonymous routes on-demand, to make that happen, we need to create a filter telling to the authorization policy only allow authenticated users.
 
@@ -76,32 +105,6 @@ public class UserController {
         //Do the auth logic.
     }
 }
-```
-
-## Generating tokens
-```csharp
-
-ClaimsIdentity identity = new ClaimsIdentity(
-    new GenericIdentity(userUniqueIdentifier, nameOfIdentifier),
-    new []
-    {
-        new Claim(PasetoRegisteredClaimsNames.TokenIdentifier, Guid.NewGuid().ToString("N")),
-        //Add your claims here. e.g. new Claim("name", "value"),
-    });
-
-PasetoTokenDescriptor pasetoTokenDescriptor = new PasetoTokenDescriptor()
-{
-    Audience = audience,
-    Expires = expirationDate,
-    Issuer = issuer,
-    Subject = identity,
-    NotBefore = DateTime.Now,
-    SecretKey = secretKey
-};
-PasetoTokenHandler tokenHandler = new PasetoTokenHandler();
-
-//Write the token (awaitable)
-string token = tokenHandler.WriteToken(pasetoTokenDescriptor);
 ```
 
 ## Working with multi-level authentication
