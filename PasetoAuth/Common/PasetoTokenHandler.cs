@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Xml;
 using FluentValidation;
@@ -23,6 +24,7 @@ namespace PasetoAuth.Common
                 .AsPublic()
                 .AddClaim(RegisteredClaims.Audience, descriptor.Audience)
                 .AddClaim(RegisteredClaims.Issuer, descriptor.Issuer)
+                .AddClaim(PasetoRegisteredClaimsNames.IssuedAt, DateTime.Now)
                 .Expiration(descriptor.Expires);
             if (!descriptor.NotBefore.Equals(null))
                 pasetoBuilder.AddClaim(RegisteredClaims.NotBefore, descriptor.NotBefore);

@@ -18,5 +18,6 @@
         public const string NotBefore = "nbf";
         public const string IssuedAt = "iat";
         public const string TokenIdentifier = "jti";
+        public const string Role = "role";
     }
 }
