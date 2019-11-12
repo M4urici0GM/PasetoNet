@@ -21,23 +21,18 @@ namespace PasetoAuth
     public class PasetoAuthHandler : AuthenticationHandler<PasetoValidationParameters>
     {
         private const string AuthorizationHeaderName = "Authorization";
-        private byte[] hashSeed;
-        private byte[] expandedPrivateKey;
-        private byte[] publicKey;
-        
         public PasetoAuthHandler(
             IOptionsMonitor<PasetoValidationParameters> options, 
             ILoggerFactory logger, UrlEncoder encoder,
             ISystemClock clock) 
             : base(options, logger, encoder, clock)
         {
-            publicKey = new byte[32];
-            expandedPrivateKey = new byte[64];
         }
 
        
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
+
             if (!Request.Headers.ContainsKey(AuthorizationHeaderName))
                 return AuthenticateResult.NoResult();
             
@@ -51,7 +46,7 @@ namespace PasetoAuth
             {
                 string decodedToken = new PasetoBuilder<Version2>()
                     .AsPublic()
-                    .WithKey(publicKey)
+                    .WithKey(PasetoDefaults.GenerateKeys(Options.SecretKey).publicKey)
                     .Decode(headerValue.Parameter);
                 
                 JObject deserializedObject =  JObject.Parse(decodedToken);
@@ -100,12 +95,5 @@ namespace PasetoAuth
                 return AuthenticateResult.Fail(ex);
             }
         }
-
-        private void GenerateKeys()
-        {
-            hashSeed = Encoding.ASCII.GetBytes(Options.SecretKey);
-            Ed25519.KeyPairFromSeed(out publicKey, out expandedPrivateKey, hashSeed);
-        }
-        
     }
 }

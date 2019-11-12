@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="8.5.1" />
       <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.7" />
       <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
       <PackageReference Include="Paseto.Core" Version="0.7.2" />

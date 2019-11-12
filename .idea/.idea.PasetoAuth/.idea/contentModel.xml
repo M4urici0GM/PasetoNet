@@ -10,6 +10,8 @@
         <e p="Common" t="Include">
           <e p="PasetoDefaults.cs" t="Include" />
           <e p="PasetoRegisteredClaimsNames.cs" t="Include" />
+          <e p="PasetoTokenDescriptor.cs" t="Include" />
+          <e p="PasetoTokenHandler.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -25,6 +27,9 @@
         <e p="PasetoAuth.csproj" t="IncludeRecursive" />
         <e p="PasetoAuthExtensions.cs" t="Include" />
         <e p="PasetoAuthHandler.cs" t="Include" />
+        <e p="Validators" t="Include">
+          <e p="TokenDescriptorValidator.cs" t="Include" />
+        </e>
       </e>
       <e p="PasetoAuth.sln" t="IncludeFlat" />
     </e>
