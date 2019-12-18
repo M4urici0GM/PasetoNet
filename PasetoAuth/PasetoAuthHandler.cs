@@ -50,6 +50,11 @@ namespace PasetoAuth
                     .Decode(headerValue.Parameter);
                 
                 JObject deserializedObject =  JObject.Parse(decodedToken);
+                if (Convert.ToDateTime(deserializedObject["exp"]).CompareTo(DateTime.Now) < 0 || Convert.ToDateTime(deserializedObject["nbf"]).CompareTo(DateTime.Now) > 0)
+                {
+                    Response.Headers["Error-Message"] = "Token Expired";
+                    return AuthenticateResult.Fail("Token Expired");
+                }
                 List<Claim> claimsList = new List<Claim>();
 
                 await Task.Run(() =>
