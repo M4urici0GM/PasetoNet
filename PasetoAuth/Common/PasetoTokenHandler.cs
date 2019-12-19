@@ -34,5 +34,14 @@ namespace PasetoAuth.Common
             }
             return Task.FromResult(pasetoBuilder.Build());
         }
+
+        public static Dictionary<string, string> DecodeToken(HttpRequest request, string key)
+        {
+            return JsonConvert.DeserializeObject<Dictionary<string, string>>
+                (new PasetoBuilder<Version2>()
+                .WithKey(PasetoDefaults.GenerateKeys(key).publicKey)
+                .AsPublic()
+                .Decode(Convert.ToString(request.Headers["Authorization"]).Replace("Bearer ", "")));
+        }
     }
 }
