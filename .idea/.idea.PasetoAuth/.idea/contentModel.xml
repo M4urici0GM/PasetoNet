@@ -17,6 +17,7 @@
           <e p="ExpiredToken.cs" t="Include" />
         </e>
         <e p="Interfaces" t="Include">
+          <e p="IPasetoRefreshTokenProvider.cs" t="Include" />
           <e p="IPasetoTokenHandler.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -27,6 +28,7 @@
           </e>
         </e>
         <e p="Options" t="Include">
+          <e p="PasetoRefreshTokenOptions.cs" t="Include" />
           <e p="PasetoValidationParameters.cs" t="Include" />
           <e p="PasetoValidationParametersPostConfigure.cs" t="Include" />
         </e>

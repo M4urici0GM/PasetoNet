@@ -12,5 +12,6 @@ namespace PasetoAuth.Common
         public ClaimsIdentity Subject { get; set; }
         public DateTime NotBefore { get; set; }
         public DateTime Expires { get; set; }
+        
     }
 }

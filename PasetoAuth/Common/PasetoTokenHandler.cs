@@ -49,9 +49,7 @@ namespace PasetoAuth.Common
             if (!descriptor.NotBefore.Equals(null))
                 pasetoBuilder.AddClaim(RegisteredClaims.NotBefore, descriptor.NotBefore);
             foreach (Claim claim in descriptor.Subject.Claims)
-            {
                 pasetoBuilder.AddClaim(claim.Type, claim.Value);
-            }
             return Task.FromResult(pasetoBuilder.Build());
         }
 

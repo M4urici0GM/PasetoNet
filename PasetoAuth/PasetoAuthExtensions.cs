@@ -23,8 +23,8 @@ namespace PasetoAuth
             this AuthenticationBuilder builder,
             string authenticationScheme,
             Action<PasetoValidationParameters> configureOptions)
-        {
-            builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<IPostConfigureOptions<PasetoValidationParameters>, PasetoValidationParametersPostConfigure>());
+        { 
+            builder.Services.TryAddSingleton<IPostConfigureOptions<PasetoValidationParameters>, PasetoValidationParametersPostConfigure>();
             builder.Services.TryAddScoped<IPasetoTokenHandler, PasetoTokenHandler>();
             return builder.AddScheme<PasetoValidationParameters, PasetoAuthHandler>(authenticationScheme, configureOptions);
         }

@@ -1,14 +1,5 @@
 ﻿namespace PasetoAuth.Common
 {
-    
-//    [Description("iss")] Issuer,
-//    [Description("sub")] Subject,
-//    [Description("aud")] Audience,
-//    [Description("exp")] ExpirationTime,
-//    [Description("nbf")] NotBefore,
-//    [Description("iat")] IssuedAt,
-//    [Description("jti")] TokenIdentifier,
-    
     public static class PasetoRegisteredClaimsNames
     {
         public const string Issuer = "iss";
