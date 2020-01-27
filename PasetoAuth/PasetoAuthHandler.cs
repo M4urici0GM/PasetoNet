@@ -15,18 +15,24 @@ using Paseto.Protocol;
 using PasetoAuth.Common;
 using PasetoAuth.Options;
 using System.Linq;
+using PasetoAuth.Exceptions;
+using PasetoAuth.Interfaces;
 
 namespace PasetoAuth
 {
     public class PasetoAuthHandler : AuthenticationHandler<PasetoValidationParameters>
     {
         private const string AuthorizationHeaderName = "Authorization";
+        private readonly IPasetoTokenHandler _pasetoTokenHandler;
+        
         public PasetoAuthHandler(
             IOptionsMonitor<PasetoValidationParameters> options, 
             ILoggerFactory logger, UrlEncoder encoder,
-            ISystemClock clock) 
+            ISystemClock clock,
+            IPasetoTokenHandler pasetoTokenHandler) 
             : base(options, logger, encoder, clock)
         {
+            _pasetoTokenHandler = pasetoTokenHandler;
         }
 
        
@@ -41,58 +47,10 @@ namespace PasetoAuth
             
             if (!Scheme.Name.Equals(headerValue.Scheme, StringComparison.OrdinalIgnoreCase))
                 return AuthenticateResult.NoResult();
-
             try
             {
-                string decodedToken = new PasetoBuilder<Version2>()
-                    .AsPublic()
-                    .WithKey(PasetoDefaults.GenerateKeys(Options.SecretKey).publicKey)
-                    .Decode(headerValue.Parameter);
-                
-                JObject deserializedObject =  JObject.Parse(decodedToken);
-                if (Convert.ToDateTime(deserializedObject["exp"]).CompareTo(DateTime.Now) < 0 || Convert.ToDateTime(deserializedObject["nbf"]).CompareTo(DateTime.Now) > 0)
-                {
-                    Response.Headers["Error-Message"] = "Token Expired";
-                    return AuthenticateResult.Fail("Token Expired");
-                }
-                List<Claim> claimsList = new List<Claim>();
-
-                await Task.Run(() =>
-                {
-                    foreach (var obj in deserializedObject.Properties())
-                    {
-                        switch (obj.Name)
-                        {
-                            case PasetoRegisteredClaimsNames.ExpirationTime:
-                                claimsList.Add(new Claim(PasetoRegisteredClaimsNames.ExpirationTime,
-                                    obj.Value.ToString()));
-                                break;
-                            case PasetoRegisteredClaimsNames.Audience:
-                                claimsList.Add(new Claim(PasetoRegisteredClaimsNames.Audience, obj.Value.ToString()));
-                                break;
-                            case PasetoRegisteredClaimsNames.Issuer:
-                                claimsList.Add(new Claim(PasetoRegisteredClaimsNames.Issuer, obj.Value.ToString()));
-                                break;
-                            case PasetoRegisteredClaimsNames.IssuedAt:
-                                claimsList.Add(new Claim(PasetoRegisteredClaimsNames.IssuedAt, obj.Value.ToString()));
-                                break;
-                            case PasetoRegisteredClaimsNames.NotBefore:
-                                claimsList.Add(new Claim(PasetoRegisteredClaimsNames.NotBefore, obj.Value.ToString()));
-                                break;
-                            case PasetoRegisteredClaimsNames.TokenIdentifier:
-                                claimsList.Add(new Claim(PasetoRegisteredClaimsNames.TokenIdentifier,
-                                    obj.Value.ToString()));
-                                break;
-                            default:
-                                claimsList.Add(new Claim(obj.Name, obj.Value.ToString()));
-                                break;
-                        }
-                    }
-                });
-                
-                ClaimsIdentity identity = new ClaimsIdentity(claimsList, Scheme.Name);
-                ClaimsPrincipal principal = new ClaimsPrincipal(identity);
-                return AuthenticateResult.Success(new AuthenticationTicket(principal, Scheme.Name));
+                var claimsPrincipal = await _pasetoTokenHandler.DecodeTokenAsync(headerValue.Parameter);
+                return AuthenticateResult.Success(new AuthenticationTicket(claimsPrincipal, Scheme.Name));
             }
             catch (Exception ex)
             {
@@ -100,5 +58,7 @@ namespace PasetoAuth
                 return AuthenticateResult.Fail(ex);
             }
         }
+        
+        
     }
 }

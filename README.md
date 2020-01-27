@@ -14,7 +14,8 @@ A [Paseto-dotnet](https://github.com/idaviddesmet/paseto-dotnet) extension for .
 - [x] Token verification
 - [x] Multiple claim support
 - [x] Token generation
-- [ ] Manual Token verification
+- [ ] Refresh Tokens feature
+- [x] Manual Token verification
 - [ ] Automatic Version detection
 - [ ] Update to .netCore 3.0
 
@@ -73,6 +74,31 @@ PasetoTokenHandler tokenHandler = new PasetoTokenHandler();
 //Write the token (awaitable)
 string token = tokenHandler.WriteToken(pasetoTokenDescriptor);
 ```
+
+## Decoding Manually tokens
+Sometimes you'll have to decode a token manually, so i implemented that feature to make your life easier:
+
+```csharp
+
+    //In the constructor of Controller:
+    public UserController(IPasetoTokenHandler pasetoTokenHandler)
+    {
+        _pasetoTokenHandler = pasetoTokenHandler;
+    }
+
+    //In the method (async): 
+    [HttpPost]
+    public async IActionResult DecodeToken(string token) {
+        ClaimsPrincipal claimsPrincipal = await _pasetoTokenHandler.DecodeTokenAsync(token);
+    }
+
+    //In the method (sync): 
+    [HttpPost]
+    public IActionResult DecodeToken(string token) {
+        ClaimsPrincipal claimsPrincipal = _pasetoTokenHandler.DecodeTokenAsync(token).Result;
+    }
+```
+
 
 # Tips: 
 ### The tips below are only tips and tricks, you can use them, or just follow your own style, i decided to put them here, 'cause in the beginning i suffered a lot to learn that.

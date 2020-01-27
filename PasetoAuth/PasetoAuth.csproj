@@ -11,4 +11,8 @@
       <PackageReference Include="Paseto.Core" Version="0.7.2" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Persistance" />
+    </ItemGroup>
+
 </Project>

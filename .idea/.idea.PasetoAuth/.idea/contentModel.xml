@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Mauricio\.Rider2019.2\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Mauricio\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_PasetoAuth.-1885484426.00" t="ExcludeRecursive" />
-    <e p="C:\Users\Mauricio\RiderProjects\PasetoAuth" t="IncludeFlat">
+    <e p="C:\Users\mauri\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\mauri\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_PasetoAuth.630399810.00" t="ExcludeRecursive" />
+    <e p="C:\Users\mauri\Desktop\Projects\PasetoNet" t="IncludeFlat">
       <e p="packages" t="ExcludeRecursive" />
       <e p="PasetoAuth" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
@@ -12,6 +12,12 @@
           <e p="PasetoRegisteredClaimsNames.cs" t="Include" />
           <e p="PasetoTokenDescriptor.cs" t="Include" />
           <e p="PasetoTokenHandler.cs" t="Include" />
+        </e>
+        <e p="Exceptions" t="Include">
+          <e p="ExpiredToken.cs" t="Include" />
+        </e>
+        <e p="Interfaces" t="Include">
+          <e p="IPasetoTokenHandler.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -27,6 +33,7 @@
         <e p="PasetoAuth.csproj" t="IncludeRecursive" />
         <e p="PasetoAuthExtensions.cs" t="Include" />
         <e p="PasetoAuthHandler.cs" t="Include" />
+        <e p="Persistance" t="Include" />
         <e p="Validators" t="Include">
           <e p="TokenDescriptorValidator.cs" t="Include" />
         </e>
