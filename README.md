@@ -75,7 +75,7 @@ PasetoTokenHandler tokenHandler = new PasetoTokenHandler();
 string token = tokenHandler.WriteToken(pasetoTokenDescriptor);
 ```
 
-## Decoding Manually tokens
+## Decoding tokens
 Sometimes you'll have to decode a token manually, so i implemented that feature to make your life easier:
 
 ```csharp
