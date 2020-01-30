@@ -15,6 +15,7 @@ using Paseto.Protocol;
 using PasetoAuth.Common;
 using PasetoAuth.Options;
 using System.Linq;
+using Microsoft.Extensions.Primitives;
 using PasetoAuth.Exceptions;
 using PasetoAuth.Interfaces;
 
@@ -47,9 +48,32 @@ namespace PasetoAuth
             
             if (!Scheme.Name.Equals(headerValue.Scheme, StringComparison.OrdinalIgnoreCase))
                 return AuthenticateResult.NoResult();
+            
+            
             try
             {
-                var claimsPrincipal = await _pasetoTokenHandler.DecodeTokenAsync(headerValue.Parameter);
+                ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal();
+                if (Options.UseRefreshToken.HasValue && Options.UseRefreshToken.Value)
+                {
+                    if (Request.Body.CanRead && Request.HasFormContentType &&
+                        Request.Form.TryGetValue("grant_type", out StringValues grantType))
+                    {
+                        if (grantType[0].Equals("refresh_token"))
+                        {
+                            if (!Request.Form.TryGetValue("refresh_token", out StringValues refreshToken))
+                                throw new InvalidGrantType();
+                            claimsPrincipal = await Options.PasetoRefreshTokenProvider.ReceiveAsync(refreshToken[0]);
+                        }
+                    }
+                }
+                else
+                {
+                    claimsPrincipal = await _pasetoTokenHandler.DecodeTokenAsync(headerValue.Parameter);
+                }
+
+                if (!claimsPrincipal.Claims.Any())
+                    throw new InvalidGrantType();
+                    
                 return AuthenticateResult.Success(new AuthenticationTicket(claimsPrincipal, Scheme.Name));
             }
             catch (Exception ex)
