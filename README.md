@@ -14,10 +14,9 @@ A [Paseto-dotnet](https://github.com/idaviddesmet/paseto-dotnet) extension for .
 - [x] Token verification
 - [x] Multiple claim support
 - [x] Token generation
-- [ ] Refresh Tokens feature
+- [x] Refresh Tokens feature
 - [x] Manual Token verification
-- [ ] Automatic Version detection
-- [ ] Update to .netCore 3.0
+- [x] Update to .netCore 3.0
 
 
 # Implementing on your code

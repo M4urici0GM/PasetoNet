@@ -15,6 +15,7 @@ using Paseto.Protocol;
 using PasetoAuth.Common;
 using PasetoAuth.Options;
 using System.Linq;
+using Microsoft.Extensions.Primitives;
 using PasetoAuth.Exceptions;
 using PasetoAuth.Interfaces;
 
@@ -47,9 +48,25 @@ namespace PasetoAuth
             
             if (!Scheme.Name.Equals(headerValue.Scheme, StringComparison.OrdinalIgnoreCase))
                 return AuthenticateResult.NoResult();
+            
+            
             try
             {
-                var claimsPrincipal = await _pasetoTokenHandler.DecodeTokenAsync(headerValue.Parameter);
+                ClaimsPrincipal claimsPrincipal;
+                if (Options.UseRefreshToken.HasValue && Options.UseRefreshToken.Value)
+                {
+                    if (Options.PasetoRefreshTokenProvider == null)
+                        throw new InvalidOperationException("Paseto Refresh Tokens handler not defined");
+                    claimsPrincipal = await Options.PasetoRefreshTokenProvider.ReceiveAsync(Request.HttpContext);
+                }
+                else
+                {
+                    claimsPrincipal = await _pasetoTokenHandler.DecodeTokenAsync(headerValue.Parameter);
+                }
+
+                if (!claimsPrincipal.Claims.Any())
+                    throw new InvalidGrantType();
+                    
                 return AuthenticateResult.Success(new AuthenticationTicket(claimsPrincipal, Scheme.Name));
             }
             catch (Exception ex)

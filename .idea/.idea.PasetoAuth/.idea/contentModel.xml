@@ -10,35 +10,32 @@
         <e p="Common" t="Include">
           <e p="PasetoDefaults.cs" t="Include" />
           <e p="PasetoRegisteredClaimsNames.cs" t="Include" />
+          <e p="PasetoToken.cs" t="Include" />
           <e p="PasetoTokenDescriptor.cs" t="Include" />
           <e p="PasetoTokenHandler.cs" t="Include" />
         </e>
         <e p="Exceptions" t="Include">
           <e p="ExpiredToken.cs" t="Include" />
+          <e p="InvalidGrantType.cs" t="Include" />
         </e>
         <e p="Interfaces" t="Include">
           <e p="IPasetoRefreshTokenProvider.cs" t="Include" />
           <e p="IPasetoTokenHandler.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
-          <e p="Debug" t="Include">
-            <e p="netcoreapp2.2" t="Include">
+          <e p="Release" t="Include">
+            <e p="netcoreapp3.1" t="Include">
               <e p="PasetoAuth.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
         </e>
         <e p="Options" t="Include">
-          <e p="PasetoRefreshTokenOptions.cs" t="Include" />
           <e p="PasetoValidationParameters.cs" t="Include" />
           <e p="PasetoValidationParametersPostConfigure.cs" t="Include" />
         </e>
         <e p="PasetoAuth.csproj" t="IncludeRecursive" />
         <e p="PasetoAuthExtensions.cs" t="Include" />
         <e p="PasetoAuthHandler.cs" t="Include" />
-        <e p="Persistance" t="Include" />
-        <e p="Validators" t="Include">
-          <e p="TokenDescriptorValidator.cs" t="Include" />
-        </e>
       </e>
       <e p="PasetoAuth.sln" t="IncludeFlat" />
     </e>

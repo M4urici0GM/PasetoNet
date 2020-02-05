@@ -19,13 +19,14 @@ namespace PasetoAuth
             return AddPaseto(builder, PasetoDefaults.Bearer, configureOptions);
         }
         
-        public static AuthenticationBuilder AddPaseto(
+        public static AuthenticationBuilder AddPaseto(    
             this AuthenticationBuilder builder,
             string authenticationScheme,
             Action<PasetoValidationParameters> configureOptions)
-        { 
-            builder.Services.TryAddSingleton<IPostConfigureOptions<PasetoValidationParameters>, PasetoValidationParametersPostConfigure>();
-            builder.Services.TryAddScoped<IPasetoTokenHandler, PasetoTokenHandler>();
+        {
+            builder.Services.AddScoped<IPasetoTokenHandler, PasetoTokenHandler>();
+            builder.Services.Configure(configureOptions);
+            builder.Services.AddSingleton<IPostConfigureOptions<PasetoValidationParameters>, PasetoValidationParametersPostConfigure>();
             return builder.AddScheme<PasetoValidationParameters, PasetoAuthHandler>(authenticationScheme, configureOptions);
         }
     }
