@@ -15,9 +15,6 @@ namespace PasetoAuth.Validators
                 .NotEmpty();
             RuleFor(t => t.Subject)
                 .NotEmpty();
-            RuleFor(t => t.SecretKey)
-                .Length(32)
-                .NotEmpty();
         }
     }
 }

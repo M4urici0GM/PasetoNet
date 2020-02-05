@@ -52,19 +52,12 @@ namespace PasetoAuth
             
             try
             {
-                ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal();
+                ClaimsPrincipal claimsPrincipal;
                 if (Options.UseRefreshToken.HasValue && Options.UseRefreshToken.Value)
                 {
-                    if (Request.Body.CanRead && Request.HasFormContentType &&
-                        Request.Form.TryGetValue("grant_type", out StringValues grantType))
-                    {
-                        if (grantType[0].Equals("refresh_token"))
-                        {
-                            if (!Request.Form.TryGetValue("refresh_token", out StringValues refreshToken))
-                                throw new InvalidGrantType();
-                            claimsPrincipal = await Options.PasetoRefreshTokenProvider.ReceiveAsync(refreshToken[0]);
-                        }
-                    }
+                    if (Options.PasetoRefreshTokenProvider.Equals(null))
+                        throw new InvalidOperationException("Paseto Refresh Tokens handler not defined");
+                    claimsPrincipal = await Options.PasetoRefreshTokenProvider.ReceiveAsync(Request.HttpContext);
                 }
                 else
                 {

@@ -8,7 +8,6 @@ namespace PasetoAuth.Common
     {
         public string Issuer { get; set; }
         public string Audience { get; set; }
-        public string SecretKey { get; set; }
         public ClaimsIdentity Subject { get; set; }
         public DateTime NotBefore { get; set; }
         public DateTime Expires { get; set; }
