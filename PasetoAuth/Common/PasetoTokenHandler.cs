@@ -3,15 +3,8 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Serialization;
-using FluentValidation;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Paseto.Builder;
 using Paseto.Cryptography;
@@ -19,7 +12,6 @@ using Paseto.Protocol;
 using PasetoAuth.Exceptions;
 using PasetoAuth.Interfaces;
 using PasetoAuth.Options;
-using PasetoAuth.Validators;
 
 namespace PasetoAuth.Common
 {
@@ -39,20 +31,17 @@ namespace PasetoAuth.Common
         {
             PasetoToken pasetoToken = new PasetoToken();
             DateTime now = DateTime.Now;
-            // ValidationResult validationResult = new TokenDescriptorValidator()
-            //     .Validate(descriptor);
-            // if (!validationResult.IsValid)
-            //     throw new ValidationException(validationResult.Errors);
-            
-            
-            
+            DateTime expirationDate = descriptor.Expires ?? now.AddSeconds(_validationParameters.DefaultExpirationTime);
+            string audience = descriptor.Audience ?? _validationParameters.Audience;
+            string issuer = descriptor.Issuer ?? _validationParameters.Issuer;
+
             PasetoBuilder<Version2> pasetoBuilder = new PasetoBuilder<Version2>()
                 .WithKey(GenerateKeyPairAsync(_validationParameters.SecretKey).Result.privateKey)
                 .AsPublic()
-                .AddClaim(RegisteredClaims.Audience, _validationParameters.Audience)
-                .AddClaim(RegisteredClaims.Issuer, _validationParameters.Issuer)
+                .AddClaim(RegisteredClaims.Audience, audience)
+                .AddClaim(RegisteredClaims.Issuer, issuer)
                 .AddClaim(PasetoRegisteredClaimsNames.IssuedAt, now)
-                .Expiration(descriptor.Expires);
+                .Expiration(expirationDate);
             if (!descriptor.NotBefore.Equals(null))
                 pasetoBuilder.AddClaim(RegisteredClaims.NotBefore, descriptor.NotBefore);
             foreach (Claim claim in descriptor.Subject.Claims)
@@ -60,8 +49,8 @@ namespace PasetoAuth.Common
             
             pasetoToken.Token = pasetoBuilder.Build();
             pasetoToken.CreatedAt = now;
-            pasetoToken.ExpiresAt = descriptor.Expires;
-            if ((_validationParameters.PasetoRefreshTokenProvider as object) != null)
+            pasetoToken.ExpiresAt = expirationDate;
+            if (_validationParameters != null && _validationParameters.PasetoRefreshTokenProvider != null)
                 pasetoToken.RefreshToken = _validationParameters.PasetoRefreshTokenProvider.CreateAsync(descriptor.Subject).Result;
             return Task.FromResult(pasetoToken);
         }
