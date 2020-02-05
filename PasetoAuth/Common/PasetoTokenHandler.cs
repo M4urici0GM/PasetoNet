@@ -46,12 +46,16 @@ namespace PasetoAuth.Common
                 pasetoBuilder.AddClaim(RegisteredClaims.NotBefore, descriptor.NotBefore);
             foreach (Claim claim in descriptor.Subject.Claims)
                 pasetoBuilder.AddClaim(claim.Type, claim.Value);
-            
+
             pasetoToken.Token = pasetoBuilder.Build();
             pasetoToken.CreatedAt = now;
             pasetoToken.ExpiresAt = expirationDate;
-            if (_validationParameters != null && _validationParameters.PasetoRefreshTokenProvider != null)
-                pasetoToken.RefreshToken = _validationParameters.PasetoRefreshTokenProvider.CreateAsync(descriptor.Subject).Result;
+            if (_validationParameters != null && _validationParameters.PasetoRefreshTokenProvider != null &&
+                _validationParameters.UseRefreshToken.HasValue && _validationParameters.UseRefreshToken.Value)
+            {
+                pasetoToken.RefreshToken = _validationParameters.PasetoRefreshTokenProvider
+                    .CreateAsync(descriptor.Subject).Result;
+            }
             return Task.FromResult(pasetoToken);
         }
 
